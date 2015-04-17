@@ -1,0 +1,41 @@
+<div class="panel panel-default comments_panel" id="comment_<%= comment.id %>">
+  <div class="panel-heading">
+    <%= full_name(comment.user) %>
+    <br />
+    <%= comment.created_at.strftime("%d %B %Y at %H:%M") %>
+    <div class="pull-right">
+      <% if can? :destroy, Comment %>
+        <%= link_to 'Delete', comment_path(comment), remote: true, data: { method: :delete }, :class => "delete_comment" %> 
+        <%= link_to "Edit", edit_comment_path(comment), remote: true, :class => "edit_comment_url" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="panel-body">
+      <div class="row">        
+        <div class="col-md-10">
+          <span class="comment_body"><%= scancode comment.body %></span>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pull-right">
+          <% if can? :create, Comment %>
+            <div class="row">
+              <div class="col-md-6">
+                <%= link_to "Reply", new_comment_path(post_id: post_id, parent_id: comment.id), remote: true, class: "btn btn-default reply" %>
+              </div>
+              <div class="col-md-6">
+                <%= link_to "Quote", new_comment_path(post_id: post_id, parent_id: comment.id), remote: true, class: "btn btn-default" %>
+              </div><br><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 children">
+        <%= render partial: 'comments/child_comment', collection: comment.children, as: :comment %>
+      </div>
+    </div>
+</div>
+</div>
+</div>

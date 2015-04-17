@@ -1,0 +1,17 @@
+<div class="panel panel-default new_comment_panel">
+  <div class="panel-heading">
+    <%= full_name(current_user) %>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+    <div class="col-md-12">
+      <%= form_for(comment, remote: true) do |c| %>
+        <%= c.text_area :body, :class => "form-control"  %>
+        <%= c.hidden_field :commentable_id, value: comment.commentable_id %>
+        <%= c.hidden_field :parent_id, value: comment.parent_id %><br>
+        <%= c.submit :class => "btn btn-default" %>
+      <% end %>
+    </div>
+  </div>
+  </div>
+</div>
